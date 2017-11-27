@@ -6,6 +6,7 @@
 								<div class="nav-bar-head" >{{title}}</div>
 								<div class="nav-bar-body">
 									<ul>
+										<li id="createArticle" @click="toCreateArticle"  @mousemove="liMouseMove" @mouseleave="liMouseLeave" >{{createArticle}}</li>
 										<li id="newBlog"  class="mouseClick" >{{newBlog}}</li>
 										<li id="aboutMe" @mousemove="liMouseMove" @click="backToHome" @mouseleave="liMouseLeave" >{{aboutMe}}</li>
 									</ul>								
@@ -46,6 +47,7 @@ export default {
     return {
       msg: 'Welcome to Your Vue.js App',
       title:'LiKe博客',
+      createArticle:'创建博客',
       newBlog:'最新博客',
       aboutMe:'关于我的',
       mouseSign:false,
@@ -83,6 +85,9 @@ export default {
   			var spanEle=ele.firstElementChild;
   			var articleId=spanEle.innerHTML;
   			this.$router.push('/Artile/'+articleId);			
+  	},
+  	toCreateArticle(e){
+  			this.$router.push('/CreateArticle');		
   	}
   }
 }

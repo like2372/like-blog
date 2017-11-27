@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from '@/components/Home'
 import AboutMe from '@/components/AboutMe'
 import Artile from '@/components/Artile'
+import CreateArticle from '@/components/createArticle'
 
 Vue.use(Router)
 
@@ -22,6 +23,11 @@ const router= new Router({
     	path:'/Artile/:articleId',
     	name:'Artile',
     	component:Artile 
+    },
+    {
+    	path:'/createArticle',
+    	name:'CreateArticle',
+    	component:CreateArticle
     }
   ]
 })
