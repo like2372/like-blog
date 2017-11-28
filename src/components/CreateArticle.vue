@@ -25,8 +25,22 @@
 										<div class="item-border"></div>
 									</div>
 								</div>
-								<div class="tab-main">				
-									<textarea name="editor" id="editor"></textarea>
+								<div class="tab-main">
+									<div class="inputTitle">
+										<label>{{inputTitle}}</label>
+										<input type="text" id="inputTitle" />
+									</div>
+									<div class="inputShortContent">
+										<label>{{inputShortContent}}</label>
+										<input type="text" id="inputShortContent" />
+									</div>
+									<div class="editorDiv">
+										<label>{{inputContent}}</label>
+										<textarea name="editor" id="editor"></textarea>
+									</div>							
+									<div class="submitDiv">
+											<button @click="submitButton">提交</button>
+									</div>
 									<!--<img v-bind:src="imgUrl" />-->
 								</div>
 							</div>						
@@ -36,6 +50,7 @@
 </template>
 
 <script>
+	
 export default {
   name: 'createArticle',
   data () {
@@ -51,10 +66,15 @@ export default {
       artileTime:'2017-10-24 17:09:05',
       artileMain:'1234567890',
       author:'',
-      imgUrl:'../../static/logo.png'
+      imgUrl:'../../static/logo.png',
+      inputTitle:'请输入文章正标题:',
+      inputShortContent:'请输入文章副标题:',
+      inputContent:'请输入文章正文:',
     }
   },created:function(){ 	
 		
+  },mounted:function(){
+		var mditor =  Mditor.fromTextarea(document.getElementById('editor'));
   },
   methods:{
   	liMouseMove(e){
@@ -72,16 +92,45 @@ export default {
   	},
   	backToAboutMe(e){
   			this.$router.push('/aboutMe');
+  	},
+  	submitButton(e){		
+  			var acticleJson={};
+  			var acticleTitle=document.getElementById('inputTitle').value;
+  			var acticleShortContent=document.getElementById('inputShortContent').value;
+  			var acticleContent=document.getElementById('editor').value;
+  			acticleJson.acticleTitle=acticleTitle;
+  			acticleJson.acticleShortContent=acticleShortContent;
+  			acticleJson.acticleContent=acticleContent;
+  			console.log(acticleJson);
+  			this.$store.dispatch('putActile',acticleJson); 		
   	}
   }
-  
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.tab-main>p{
-	width:20%;
+
+.submitDiv{
+	margin-top:2%;
+}
+
+.editorDiv{
+	margin-top:10%;
+}	
+	
+.tab-main div input {
+	width:100%;
+	height:1.2rem;
+}	
+	
+.tab-main div{
+	width:100%;
+	float:left;
+	margin-top:5%;
+}	
+	
+.tab-main{
 	height:auto;
 	text-align:left;
 }

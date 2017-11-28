@@ -19,18 +19,25 @@ const store = new Vuex.Store({
   actions:{
   		getActileList(context){
   				axios.get("/api/articleService/getArticleData")
-  				.then(function(response){
-  					
-  					var data=response.data;					
-  					
-  					context.state.actileList=data.data;
-  					
-  					
-  					
+  				.then(function(response){					
+  					var data=response.data;					  					
+  					context.state.actileList=data.data;			
   				})
   				.catch(function(error){
   					alert('请求失败,error='+error);
   				});
+  		},
+  		putActile(context,value){			
+  			var acticleJson=JSON.stringify(value);
+			var params = new URLSearchParams();
+			params.append('articleJson', acticleJson);		
+  			axios.post("/api/articleService/insertArticleData",params)
+  			.then(function(response){
+  				alert('请求成功,response='+response);
+  			})
+  			.catch(function(error){
+  					alert('请求失败,error='+error);
+  			});
   		}
   }
 })

@@ -6,6 +6,7 @@
 								<div class="nav-bar-head" >{{title}}</div>
 								<div class="nav-bar-body">
 									<ul>
+										<li id="createArticle" @mousemove="liMouseMove" @click="backToHome('/createArticle')" @mouseleave="liMouseLeave"  >{{createArticle}}</li>
 										<li id="newBlog" @mousemove="liMouseMove" @click="backToHome('/')" @mouseleave="liMouseLeave" >{{newBlog}}</li>
 										<li id="aboutMe" @mousemove="liMouseMove" @click="backToHome('/AboutMe')" @mouseleave="liMouseLeave"   >{{aboutMe}}</li>
 									</ul>								
@@ -43,6 +44,7 @@ export default {
     return {
       msg: 'Welcome to Your Vue.js App',
       title:'LiKe博客',
+      createArticle:'创建博客',
       newBlog:'最新博客',
       aboutMe:'关于我的',
       mouseSign:false,
