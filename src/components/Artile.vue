@@ -21,14 +21,14 @@
 										<div class="pTitle" >
 											<p>{{newArticle}}</p>
 										</div>										
-										<div class="item-border"></div>
+										<div class="item-border"></div> 
 									</div>
 								</div>
 								<div class="tab-main">
 										<div class="artile-main-title">{{artileJson.articleTitle}}</div>
 										<div class="artile-main-time">{{artileJson.articleTime}}</div>
 										<div class="artile-main-content" >
-											<p v-html="artileJson.articleContent"></p>
+											<div class="content markdown-body"  v-html="formatActicle(artileJson.articleContent)"></div>
 										</div>
 								</div>
 							</div>						
@@ -38,6 +38,8 @@
 </template>
 
 <script>
+	
+import mditor from 'mditor'
 export default {
   name: 'AboutMe',
   data () {
@@ -84,17 +86,22 @@ export default {
   	backToHome(path){
   			this.$router.push(path);		 			
   	},
+  	formatActicle(value){
+  		  var parser = new mditor.Parser({})
+        var html = parser.parse(value)
+        return html
+  	}
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-	
-	.artile-main-content>p{
+
+	.artile-main-content>div{
 		text-align: left;
 		margin-top: 1rem;
-		margin-bottom:1rem ;
+		margin-bottom:10rem ;
 	}
 	
 .tab-main>p{

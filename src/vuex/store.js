@@ -28,12 +28,17 @@ const store = new Vuex.Store({
   				});
   		},
   		putActile(context,value){			
-  			var acticleJson=JSON.stringify(value);
+  			var acticleJson=JSON.stringify(value);		
 			var params = new URLSearchParams();
 			params.append('articleJson', acticleJson);		
-  			axios.post("/api/articleService/insertArticleData",params)
+  			axios.post("/api/articleService/insertArticleData",params,{
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+                }
+            })
   			.then(function(response){
-  				alert('请求成功,response='+response);
+				console.log("请求成功");
+  				console.log(response);
   			})
   			.catch(function(error){
   					alert('请求失败,error='+error);
