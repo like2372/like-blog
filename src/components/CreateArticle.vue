@@ -28,18 +28,18 @@
 								<div class="tab-main">
 									<div class="inputTitle">
 										<label>{{inputTitle}}</label>
-										<input type="text" id="inputTitle" />
+										<i-input type="text" id="inputTitle" />
 									</div>
 									<div class="inputShortContent">
 										<label>{{inputShortContent}}</label>
-										<input type="text" id="inputShortContent" />
+										<i-input type="text" id="inputShortContent" />
 									</div>
 									<div class="editorDiv">
 										<label>{{inputContent}}</label>
 										<textarea name="editor" id="editor"></textarea>
 									</div>							
 									<div class="submitDiv">
-											<button @click="submitButton">提交</button>
+											<i-button type="primary" @click="submitButton">提交</i-button>
 									</div>
 									<!--<img v-bind:src="imgUrl" />-->
 								</div>
@@ -121,13 +121,12 @@ export default {
 	
 .tab-main div input {
 	width:100%;
-	height:1.2rem;
 }	
 	
 .tab-main div{
 	width:100%;
 	float:left;
-	margin-top:5%;
+	margin-top:2%;
 }	
 	
 .tab-main{

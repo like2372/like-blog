@@ -56,13 +56,12 @@ export default {
       artileMain:'1234567890',
       artileTitle:"深入理解 Linux 的 RCU 机制",
       actileList:"",
-      articleId:"",
     }
   },created:function(){
-  		this.articleId=this.$route.params.articleId;
+  		this.$store.dispatch('getActileDetail',this.$route.params.articleId);
   },
   computed:{
-  	artileJson(){
+  	/*artileJson(){
   		var artileJson="";
   		var actileList=this.$store.state.actileList;
   		for(var i=0;i<actileList.length;i++){
@@ -70,6 +69,9 @@ export default {
   			if(rowJson.id==this.articleId)artileJson=rowJson;
   		}
   		return artileJson;
+  	}*/
+  	artileJson(){ 		
+  		return this.$store.state.actileDetail;
   	}
   },
   methods:{

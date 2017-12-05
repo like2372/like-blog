@@ -24,15 +24,23 @@
 										<div class="item-border"></div>
 									</div>
 								</div>
-								<div class="tab-main">
+								<div class="tab-main">									
 									<div v-for="item in topicList" class="artile">
 										<div class="artile-body">
 												<div class="artile-title" @click="toArtile">{{item.articleTitle}}<span v-show="false">{{item.id}}</span></div>
 												<div class="artile-time">{{item.articleTime}}</div>
 												<div class="artile-main">{{item.articleShortContent}}</div>
 										</div>
-									</div>								
+									</div>	
+									<!--<div v-for="n in pageSize" class="artile">
+										<div class="artile-body">
+												<div class="artile-title" @click="toArtile">{{artileTile}}<span v-show="false">{{}}</span></div>
+												<div class="artile-time">{{artileTime}}</div>
+												<div class="artile-main">{{artileMain}}</div>
+										</div>
+									</div>	-->							
 								</div>
+								<Page :total='totalNumber' @on-change="pageChange" :page-size="pageSize" style="margin-right:5%;margin-top:5%;height:5%;" ></Page>
 							</div>						
 					</div>
 			</div>	
@@ -50,19 +58,27 @@ export default {
       createArticle:'创建博客',
       newBlog:'最新博客',
       aboutMe:'关于我的',
-      mouseSign:false,
+      pageSize:2,
+      mouseSign:false,      
       newArticle:'最新文章',
       artileTile:'深入理解 Linux 的 RCU 机制',
       artileTime:'2017-11-18 17:09:05',
-      artileMain:'RCU(Read-Copy Update)，是 Linux 中比较重要的一种同步机制。顾名思义就是“读，拷贝更新”，再直白点是“随意读，但更新数据的时候，需要先复制一份副本，在副本上完成修改，再一次性地替换旧数据”。这是 Linux 内核实现的一种针对“读多写少”的共享数据的同步机制。',
+      artileMain:'RCU(Read-Copy Update)，是 Linux 中比较重要的一种同步机制。顾名思义就是“读，拷贝更新”',
     }
   },
   created:function(){
-
+  	var data={};
+  	data.start=0;
+  	data.end=this.pageSize;
+		this.$store.dispatch('getActileList',data);
   },
   computed:{
   	topicList(){
   		return this.$store.state.actileList;
+  	},
+  	totalNumber(){
+  		var total=this.$store.state.actileTotalNumber;
+  		return parseInt(total);
   	}
   },
   methods:{
@@ -88,6 +104,12 @@ export default {
   	},
   	toCreateArticle(e){
   			this.$router.push('/CreateArticle');		
+  	},
+  	pageChange(e){
+  			var data={};
+  			data.start=(e-1)*this.pageSize;
+  			data.end=this.pageSize;
+  			this.$store.dispatch('getActileList',data);
   	}
   }
 }

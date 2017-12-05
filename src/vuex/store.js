@@ -9,7 +9,9 @@ const store = new Vuex.Store({
   state: {
     author: '李科',
     dataUrl:'',
-    actileList:[],   
+    actileList:[],
+    actileTotalNumber:"",
+    actileDetail:{},
   },
   mutations:{
   		newAuthor(state,msg){
@@ -17,11 +19,22 @@ const store = new Vuex.Store({
   		}, 		
   },
   actions:{
-  		getActileList(context){
-  				axios.get("/api/articleService/getArticleData")
+  		getActileList(context,data){
+  				axios.get("/api/articleService/getArticleList?start="+data.start+"&end="+data.end)
   				.then(function(response){					
   					var data=response.data;					  					
-  					context.state.actileList=data.data;			
+  					context.state.actileList=data.data;		
+  					context.state.actileTotalNumber=data.totalNumber;
+  				})
+  				.catch(function(error){
+  					alert('请求失败,error='+error);
+  				});
+  		},
+  		getActileDetail(context,id){
+  				axios.get("/api/articleService/getArticleDetail?id="+id)
+  				.then(function(response){					
+  					var data=response.data;					  					
+  					context.state.actileDetail=data.data[0];		
   				})
   				.catch(function(error){
   					alert('请求失败,error='+error);

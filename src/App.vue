@@ -39,11 +39,13 @@ body{
 	 width:100%;
   height:100%;
   margin:0px;
+  font-size: 1rem;
 }
 
 html{
 	width:100%;
   height:100%;
+  font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
 }
 
 .mouseClick{
@@ -98,7 +100,6 @@ html{
 .artile-body{
 	padding:10%;
 	height:80%;
-	
 }
 
 .tab-main{
@@ -108,12 +109,12 @@ html{
 
 .artile{
 	width:45%;
-	height:25%;
+	height:29%;
 	background: white;
 	margin-top:2%;
 	margin-bottom:2%;
 	float:left;
-	margin-right: 2%;
+	margin-right: 5%;
 	
 }
 
@@ -145,7 +146,7 @@ p{
 }
 
 .tab-main{
-	height:94%;
+	height:80%;
 }
 
 .rightMain{

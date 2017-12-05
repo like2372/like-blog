@@ -4,8 +4,11 @@ import Home from '@/components/Home'
 import AboutMe from '@/components/AboutMe'
 import Artile from '@/components/Artile'
 import CreateArticle from '@/components/createArticle'
+import iView from 'iview'
+import 'iview/dist/styles/iview.css'
 
-Vue.use(Router)
+Vue.use(Router);
+Vue.use(iView);
 
 const router= new Router({
   routes: [
@@ -33,15 +36,13 @@ const router= new Router({
 })
 
 router.beforeEach((to,form,next)=>{
-		console.log(to);
-		console.log(form);
-		console.log(next);
-		//alert(to.name);
-		//next('/AboutMe');
-		//next('/');
-		//alert(1);
+		iView.LoadingBar.start();
 		next();
 });
 
+
+router.afterEach((to,form,next)=>{
+		iView.LoadingBar.finish();
+});
 
 export default router
