@@ -28,11 +28,11 @@
 								<div class="tab-main">
 									<div class="inputTitle">
 										<label>{{inputTitle}}</label>
-										<i-input type="text" id="inputTitle" />
+										<i-input type="text" v-model='titleInput' id="inputTitle" />
 									</div>
 									<div class="inputShortContent">
 										<label>{{inputShortContent}}</label>
-										<i-input type="text" id="inputShortContent" />
+										<i-input type="text" v-model='shortContentInput' id="inputShortContent" />
 									</div>
 									<div class="editorDiv">
 										<label>{{inputContent}}</label>
@@ -67,6 +67,8 @@ export default {
       artileMain:'1234567890',
       author:'',
       imgUrl:'../../static/logo.png',
+      titleInput:"",
+      shortContentInput:"",
       inputTitle:'请输入文章正标题:',
       inputShortContent:'请输入文章副标题:',
       inputContent:'请输入文章正文:',
@@ -95,8 +97,8 @@ export default {
   	},
   	submitButton(e){		
   			var acticleJson={};
-  			var acticleTitle=document.getElementById('inputTitle').value;
-  			var acticleShortContent=document.getElementById('inputShortContent').value;
+  			var acticleTitle=this.titleInput;
+  			var acticleShortContent=this.shortContentInput;
   			var acticleContent=document.getElementById('editor').value;
   			acticleJson.acticleTitle=acticleTitle;
   			acticleJson.acticleShortContent=acticleShortContent;

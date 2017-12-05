@@ -58,7 +58,7 @@ export default {
       createArticle:'创建博客',
       newBlog:'最新博客',
       aboutMe:'关于我的',
-      pageSize:2,
+      pageSize:6,
       mouseSign:false,      
       newArticle:'最新文章',
       artileTile:'深入理解 Linux 的 RCU 机制',
