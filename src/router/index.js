@@ -4,7 +4,9 @@ import Home from '@/components/Home'
 import AboutMe from '@/components/AboutMe'
 import Artile from '@/components/Artile'
 import CreateArticle from '@/components/createArticle'
+import Login from '@/components/Login'
 import iView from 'iview'
+import auth from '@/utils/auth'
 import 'iview/dist/styles/iview.css'
 
 Vue.use(Router);
@@ -30,14 +32,35 @@ const router= new Router({
     {
     	path:'/createArticle',
     	name:'CreateArticle',
-    	component:CreateArticle
+    	component:CreateArticle,
+    	meta:{
+    		requiresAuth:true
+    	}
+    },
+    {
+    	path:'/login',
+    	name:Login,
+    	component:Login
     }
   ]
 })
 
-router.beforeEach((to,form,next)=>{
+router.beforeEach((to,form,next)=>{	
 		iView.LoadingBar.start();
-		next();
+		if(to.matched.some(record=>record.meta.requiresAuth)){
+			if(!auth.loggedIn()){
+				next({
+					path:'/login',
+					query:{
+						redirect:to.fullPath
+					}
+				});
+			}else{
+				next();
+			}
+		}else{
+			next();
+		}	
 });
 
 

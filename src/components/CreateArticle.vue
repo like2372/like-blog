@@ -7,12 +7,15 @@
 								<div class="nav-bar-body">
 									<ul>
 										<li id="createArticle"  class="mouseClick"  >{{createArticle}}</li>
-										<li id="newBlog" @mousemove="liMouseMove" @click="backToHome" @mouseleave="liMouseLeave" >{{newBlog}}</li>
-										<li id="aboutMe" @mousemove="liMouseMove" @click="backToAboutMe" @mouseleave="liMouseLeave" >{{aboutMe}}</li>
+										<li id="newBlog" @mousemove="liMouseMove" @click="toApp('/')" @mouseleave="liMouseLeave" >{{newBlog}}</li>
+										<li id="aboutMe" @mousemove="liMouseMove" @click="toApp('/AboutMe')" @mouseleave="liMouseLeave" >{{aboutMe}}</li>
 									</ul>
 									
 								</div>
-								<div class="nav-bar-foot"></div>
+								<div class="nav-bar-foot">
+									<i-button type="primary" @click="toApp('/login')" v-if='!loginSign'>登录</i-button>
+									<i-button type="primary"  @click="logout" v-if='loginSign'>注销</i-button>
+								</div>
 						</div>
 					</div>
 					<div class="rightOrBottom">
@@ -50,6 +53,10 @@
 </template>
 
 <script>
+		
+import mditor from 'mditor'
+
+import auth from '@/utils/auth'
 	
 export default {
   name: 'createArticle',
@@ -72,6 +79,7 @@ export default {
       inputTitle:'请输入文章正标题:',
       inputShortContent:'请输入文章副标题:',
       inputContent:'请输入文章正文:',
+      loginSign:auth.loggedIn(),
     }
   },created:function(){ 	
 		
@@ -89,11 +97,8 @@ export default {
   		  el.classList.add("mouseLeave");
   		 	el.classList.remove("mouseMove");
   	},
-  	backToHome(e){
-  			this.$router.push('/');		 			
-  	},
-  	backToAboutMe(e){
-  			this.$router.push('/aboutMe');
+  	toApp(path){
+  			this.$router.push(path);		 			
   	},
   	submitButton(e){		
   			var acticleJson={};
@@ -105,6 +110,10 @@ export default {
   			acticleJson.acticleContent=acticleContent;
   			console.log(acticleJson);
   			this.$store.dispatch('putActile',acticleJson); 		
+  	},
+  	logout(){
+  			auth.logout();
+  			this.$router.push('/');	
   	}
   }
 }

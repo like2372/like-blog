@@ -6,12 +6,15 @@
 								<div class="nav-bar-head" >{{title}}</div>
 								<div class="nav-bar-body">
 									<ul>
-										<li id="createArticle" @mousemove="liMouseMove" @click="backToHome('/createArticle')" @mouseleave="liMouseLeave"  >{{createArticle}}</li>
-										<li id="newBlog" @mousemove="liMouseMove" @click="backToHome('/')" @mouseleave="liMouseLeave" >{{newBlog}}</li>
-										<li id="aboutMe" @mousemove="liMouseMove" @click="backToHome('/AboutMe')" @mouseleave="liMouseLeave"   >{{aboutMe}}</li>
+										<li id="createArticle" @mousemove="liMouseMove" @click="toApp('/createArticle')" @mouseleave="liMouseLeave" v-if='loginSign'  >{{createArticle}}</li>
+										<li id="newBlog" @mousemove="liMouseMove" @click="toApp('/')" @mouseleave="liMouseLeave" >{{newBlog}}</li>
+										<li id="aboutMe" @mousemove="liMouseMove" @click="toApp('/AboutMe')" @mouseleave="liMouseLeave"   >{{aboutMe}}</li>
 									</ul>								
 								</div>
-								<div class="nav-bar-foot"></div>
+								<div class="nav-bar-foot">
+									<i-button type="primary" @click="toApp('/login')" v-if='!loginSign'>登录</i-button>
+									<i-button type="primary"  @click="logout" v-if='loginSign'>注销</i-button>
+								</div>
 						</div>
 					</div>
 					<div class="rightOrBottom">
@@ -38,8 +41,12 @@
 </template>
 
 <script>
-	
+
+
+
+import auth from '@/utils/auth'
 import mditor from 'mditor'
+
 export default {
   name: 'AboutMe',
   data () {
@@ -56,20 +63,12 @@ export default {
       artileMain:'1234567890',
       artileTitle:"深入理解 Linux 的 RCU 机制",
       actileList:"",
+      loginSign:auth.loggedIn(),
     }
   },created:function(){
   		this.$store.dispatch('getActileDetail',this.$route.params.articleId);
   },
   computed:{
-  	/*artileJson(){
-  		var artileJson="";
-  		var actileList=this.$store.state.actileList;
-  		for(var i=0;i<actileList.length;i++){
-  			var rowJson=actileList[i];
-  			if(rowJson.id==this.articleId)artileJson=rowJson;
-  		}
-  		return artileJson;
-  	}*/
   	artileJson(){ 		
   		return this.$store.state.actileDetail;
   	}
@@ -85,13 +84,17 @@ export default {
   		  el.classList.add("mouseLeave");
   		 	el.classList.remove("mouseMove");
   	},
-  	backToHome(path){
+  	toApp(path){
   			this.$router.push(path);		 			
   	},
   	formatActicle(value){
   		  var parser = new mditor.Parser({})
         var html = parser.parse(value)
         return html
+  	},
+  	logout(){
+  			auth.logout();
+  			this.$router.push('/');	
   	}
   }
 }

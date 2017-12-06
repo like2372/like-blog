@@ -6,12 +6,15 @@
 								<div class="nav-bar-head" >{{title}}</div>
 								<div class="nav-bar-body">
 									<ul>
-										<li id="createArticle" @click="toCreateArticle"  @mousemove="liMouseMove" @mouseleave="liMouseLeave" >{{createArticle}}</li>
+										<li id="createArticle" @click="toApp('/createArticle')"  @mousemove="liMouseMove" @mouseleave="liMouseLeave" v-if='loginSign' >{{createArticle}}</li>
 										<li id="newBlog"  class="mouseClick" >{{newBlog}}</li>
-										<li id="aboutMe" @mousemove="liMouseMove" @click="backToHome" @mouseleave="liMouseLeave" >{{aboutMe}}</li>
+										<li id="aboutMe" @mousemove="liMouseMove" @click="toApp('/AboutMe')" @mouseleave="liMouseLeave" >{{aboutMe}}</li>
 									</ul>								
 								</div>
-								<div class="nav-bar-foot"></div>
+								<div class="nav-bar-foot">
+									<i-button type="primary" @click="toApp('/login')" v-if='!loginSign'>登录</i-button>
+									<i-button type="primary"  @click="logout" v-if='loginSign'>注销</i-button>
+								</div>
 						</div>
 					</div>
 					<div class="rightOrBottom">
@@ -49,6 +52,9 @@
 </template>
 
 <script>
+	
+import auth from '@/utils/auth'
+	
 export default {
   name: 'Home',
   data () {
@@ -64,6 +70,7 @@ export default {
       artileTile:'深入理解 Linux 的 RCU 机制',
       artileTime:'2017-11-18 17:09:05',
       artileMain:'RCU(Read-Copy Update)，是 Linux 中比较重要的一种同步机制。顾名思义就是“读，拷贝更新”',
+      loginSign:auth.loggedIn(),
     }
   },
   created:function(){
@@ -79,7 +86,7 @@ export default {
   	totalNumber(){
   		var total=this.$store.state.actileTotalNumber;
   		return parseInt(total);
-  	}
+  	},
   },
   methods:{
   	liMouseMove(e){
@@ -102,14 +109,18 @@ export default {
   			var articleId=spanEle.innerHTML;
   			this.$router.push('/Artile/'+articleId);			
   	},
-  	toCreateArticle(e){
-  			this.$router.push('/CreateArticle');		
+  	toApp(path){
+  			this.$router.push(path);		 			
   	},
   	pageChange(e){
   			var data={};
   			data.start=(e-1)*this.pageSize;
   			data.end=this.pageSize;
   			this.$store.dispatch('getActileList',data);
+  	},
+  	logout(){
+  			auth.logout();
+  			this.$router.push('/');	
   	}
   }
 }

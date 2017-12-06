@@ -12,6 +12,7 @@ const store = new Vuex.Store({
     actileList:[],
     actileTotalNumber:"",
     actileDetail:{},
+    loginSign:false,
   },
   mutations:{
   		newAuthor(state,msg){

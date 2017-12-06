@@ -6,13 +6,16 @@
 								<div class="nav-bar-head" >{{title}}</div>
 								<div class="nav-bar-body">
 									<ul>
-										<li id="createArticle" @click="toCreateArticle"  @mousemove="liMouseMove" @mouseleave="liMouseLeave" >{{createArticle}}</li>
-										<li id="newBlog" @mousemove="liMouseMove" @click="backToHome" @mouseleave="liMouseLeave" >{{newBlog}}</li>
+										<li id="createArticle" @click="toApp('/createArticle')" v-if='loginSign'   @mousemove="liMouseMove" @mouseleave="liMouseLeave" >{{createArticle}}</li>
+										<li id="newBlog" @mousemove="liMouseMove" @click="toApp('/')" @mouseleave="liMouseLeave" >{{newBlog}}</li>
 										<li id="aboutMe"  class="mouseClick"  >{{aboutMe}}</li>
 									</ul>
 									
 								</div>
-								<div class="nav-bar-foot"></div>
+								<div class="nav-bar-foot">
+									<i-button type="primary" @click="toApp('/login')" v-if='!loginSign'>登录</i-button>
+									<i-button type="primary"  @click="logout" v-if='loginSign'>注销</i-button>
+								</div>
 						</div>
 					</div>
 					<div class="rightOrBottom">
@@ -37,6 +40,9 @@
   </div>
 </template>
 <script>
+	
+import auth from '@/utils/auth'	
+
 export default {
   name: 'AboutMe',
   data () {
@@ -52,7 +58,8 @@ export default {
       artileTime:'2017-10-24 17:09:05',
       artileMain:'1234567890',
       author:'',
-      imgUrl:'../../static/logo.png'
+      imgUrl:'../../static/logo.png',
+      loginSign:auth.loggedIn(),
     }
   },created:function(){ 	
   	this.author=this.$store.state.author;
@@ -68,11 +75,12 @@ export default {
   		  el.classList.add("mouseLeave");
   		 	el.classList.remove("mouseMove");
   	},
-  	backToHome(e){
-  			this.$router.push('/');		 			
+  	toApp(path){
+  			this.$router.push(path);		 			
   	},
-  	toCreateArticle(e){
-  			this.$router.push('/CreateArticle');		
+  	logout(){
+  			auth.logout();
+  			this.$router.push('/');	
   	}
   }
   

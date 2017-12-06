@@ -193,6 +193,8 @@ p{
 
 .nav-bar-foot{
 	height:10%;
+	float:right;
+	margin-right:20%;
 	/*background-color: #1e1d26;*/
 }
 
