@@ -14,7 +14,7 @@ export default {
   	}
   },
   created:function(){
-  	this.$store.dispatch('getActileList');
+  	
   },
   methods:{
   	getUser(msg){

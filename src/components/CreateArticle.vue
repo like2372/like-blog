@@ -29,21 +29,24 @@
 									</div>
 								</div>
 								<div class="tab-main">
-									<div class="inputTitle">
-										<label>{{inputTitle}}</label>
-										<i-input type="text" v-model='titleInput' id="inputTitle" />
-									</div>
-									<div class="inputShortContent">
-										<label>{{inputShortContent}}</label>
-										<i-input type="text" v-model='shortContentInput' id="inputShortContent" />
-									</div>
-									<div class="editorDiv">
-										<label>{{inputContent}}</label>
-										<textarea name="editor" id="editor"></textarea>
-									</div>							
-									<div class="submitDiv">
-											<i-button type="primary" @click="submitButton">提交</i-button>
-									</div>
+									
+									<i-form ref='articleForm' class="articleForm" :model='articleForm'  :rules='articleRules'>
+										<formItem prop='inputTitle' class="inputTitle">
+											<label>{{inputTitle}}</label>
+											<i-input type="text" v-model='articleForm.inputTitle' id="inputTitle" placeholder='请输入20字以内的标题'/>
+										</formItem>
+										<formItem prop='inputShortContent' class="inputShortContent" >
+											<label>{{inputShortContent}}</label>
+											<i-input type="text" v-model='articleForm.inputShortContent' id="inputShortContent" placeholder='请输入40字以内的描述'/>
+										</formItem>
+										<formItem  prop='inputContent'  class="editorDiv">
+											<label>{{inputContent}}</label>
+											<textarea name="editor" id="editor" ></textarea>
+										</formItem>							
+										<formItem class="submitDiv">
+												<i-button type="primary" @click="submitButton('articleForm')">提交</i-button>
+										</formItem>
+									</i-form>
 									<!--<img v-bind:src="imgUrl" />-->
 								</div>
 							</div>						
@@ -53,7 +56,10 @@
 </template>
 
 <script>
-		
+
+import 'mditor/dist/js/mditor.min.js'
+import 'mditor/dist/css/mditor.min.css'
+	
 import mditor from 'mditor'
 
 import auth from '@/utils/auth'
@@ -76,10 +82,26 @@ export default {
       imgUrl:'../../static/logo.png',
       titleInput:"",
       shortContentInput:"",
-      inputTitle:'请输入文章正标题:',
-      inputShortContent:'请输入文章副标题:',
+      inputTitle:'请输入文章标题:',
+      inputShortContent:'请输入文章描述:',
       inputContent:'请输入文章正文:',
       loginSign:auth.loggedIn(),
+      articleForm:{
+      	inputTitle:'',
+      	inputShortContent:'',
+      },
+      articleRules:{
+      	inputTitle:[{
+      		required:true,message:'标题不能为空',trigger: 'blur'
+      	},{
+      		type:'string',max:20,message:'标题不能超过20个字',trigger:'change'
+      	}],
+      	inputShortContent:[{
+      		required:true,message:'描述不能为空',trigger: 'blur'
+      	},{
+      		type:'string',max:40,message:'描述不能超过40个字',trigger:'change'
+      	}],     	
+      }
     }
   },created:function(){ 	
 		
@@ -100,16 +122,22 @@ export default {
   	toApp(path){
   			this.$router.push(path);		 			
   	},
-  	submitButton(e){		
-  			var acticleJson={};
-  			var acticleTitle=this.titleInput;
-  			var acticleShortContent=this.shortContentInput;
-  			var acticleContent=document.getElementById('editor').value;
-  			acticleJson.acticleTitle=acticleTitle;
-  			acticleJson.acticleShortContent=acticleShortContent;
-  			acticleJson.acticleContent=acticleContent;
-  			console.log(acticleJson);
-  			this.$store.dispatch('putActile',acticleJson); 		
+  	submitButton(name){
+  			this.$refs[name].validate((valid)=>{
+  				if(valid){
+  					var acticleJson={};
+		  			var acticleTitle=this.articleForm.inputTitle;
+		  			var acticleShortContent=this.articleForm.inputShortContent;
+		  			var acticleContent=document.getElementById('editor').value;
+		  			acticleJson.acticleTitle=acticleTitle;
+		  			acticleJson.acticleShortContent=acticleShortContent;
+		  			acticleJson.acticleContent=acticleContent;
+		  			this.$store.dispatch('putActile',acticleJson);		  			
+  				}else{
+  					this.$Message.error('保存失败');
+  				}
+  			});
+  			 		
   	},
   	logout(){
   			auth.logout();
@@ -121,6 +149,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+.articleForm{
+	font-size: 1rem;
+}
 
 .submitDiv{
 	margin-top:2%;

@@ -45,6 +45,10 @@
 
 
 import auth from '@/utils/auth'
+
+
+import 'mditor/dist/css/mditor.min.css'
+
 import mditor from 'mditor'
 
 export default {
@@ -67,6 +71,12 @@ export default {
     }
   },created:function(){
   		this.$store.dispatch('getActileDetail',this.$route.params.articleId);
+  },mounted:function(){
+  		var preEle=document.getElementsByTagName('pre');		
+  		for(let i=0;i<preEle.length;i++){ 			
+  			var ele=preEle[i];
+  			ele.style.backgroundColor='antiquewhite';
+  		}	
   },
   computed:{
   	artileJson(){ 		
