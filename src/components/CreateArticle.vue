@@ -61,7 +61,7 @@ import 'mditor/dist/js/mditor.min.js'
 import 'mditor/dist/css/mditor.min.css'
 	
 import mditor from 'mditor'
-
+import api from '@/utils/api'
 import auth from '@/utils/auth'
 	
 export default {
@@ -131,8 +131,21 @@ export default {
 		  			var acticleContent=document.getElementById('editor').value;
 		  			acticleJson.acticleTitle=acticleTitle;
 		  			acticleJson.acticleShortContent=acticleShortContent;
-		  			acticleJson.acticleContent=acticleContent;
-		  			this.$store.dispatch('putActile',acticleJson);		  			
+		  			acticleJson.acticleContent=acticleContent;		  					  					
+		  			api.post("/api/articleService/insertArticleData",acticleJson)
+		  			.then(function(response){
+		  						if(response.data.resultCode=="1"){
+		  							this.$Message.success('保存成功');
+									this.$router.push('/');
+		  						}else{
+		  							this.$Message.error("保存失败");
+		  						}								
+		  			}.bind(this))
+		  			.catch(function(error){
+		  					this.$Message.error('请求失败,error='+error);	
+		  			}.bind(this));
+		  			
+		  			
   				}else{
   					this.$Message.error('保存失败');
   				}

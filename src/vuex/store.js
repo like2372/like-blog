@@ -43,23 +43,6 @@ const store = new Vuex.Store({
   					this.$Message.error('请求失败,error='+error);	
   				}.bind(this));
   		},
-  		putActile(context,value){			
-  			var acticleJson=JSON.stringify(value);		
-				var params = new URLSearchParams();
-				params.append('articleJson', acticleJson);		
-	  			axios.post("/api/articleService/insertArticleData",params,{
-	                headers: {
-	                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
-	                }
-	            })
-	  			.then(function(response){
-							this.$Message.success('保存成功');
-							this.$router.push('/');
-	  			}.bind(this))
-	  			.catch(function(error){
-	  					this.$Message.error('请求失败,error='+error);	
-	  			}.bind(this));
-  		},
   		deleActile(context,value){
   				axios.get("/api/articleService/deleteArticleData?id="+id)
   				.then(function(response){					

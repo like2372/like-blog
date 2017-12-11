@@ -22,11 +22,14 @@ axios.interceptors.response.use(response => {
 })
 
 export default {
-    post(url, data) {
+    post(url, data) {    	
+    	var acticleJsonString=JSON.stringify(data);		
+		var params = new URLSearchParams();
+		params.append('articleJson', acticleJsonString);    	
         return axios({
             method: 'post', // 请求协议
             url: url, // 请求的地址
-            data: qs.stringify(data), // post 请求的数据
+            params: params, // post 请求的数据
             timeout: 30000, // 超时时间, 单位毫秒
             headers: {
                 'X-Requested-With': 'XMLHttpRequest',

@@ -27,10 +27,16 @@
 										<div class="item-border"></div>
 									</div>
 								</div>
-								<div class="tab-main">									
+								<div class="tab-main">
+									<Modal v-model="deleModal" title="是否删除该条？" @on-ok="deleteActicle(this)">
+											        <p>是否删除该条？</p>
+									</Modal>
 									<div v-for="item in topicList" class="artile">
 										<div class="artile-body">
-												<div class="artile-title" @click="toArtile">{{item.articleTitle}}<span v-show="false">{{item.id}}</span></div>
+												<div class="close-div" @click="showModal" :item-id="item.id" v-if='loginSign'>
+													<Icon  style="color:black;float:right;" type="close-round" ></Icon>									
+												</div>
+												<div class="artile-title" @click="toArtile">{{item.articleTitle}}<span v-show="false">{{item.id}}</span></div>						
 												<div class="artile-time">{{item.articleTime}}</div>
 												<div class="artile-main">{{item.articleShortContent}}</div>
 										</div>
@@ -54,7 +60,10 @@
 <script>
 	
 import auth from '@/utils/auth'
-	
+
+import api from '@/utils/api'
+
+
 export default {
   name: 'Home',
   data () {
@@ -71,6 +80,8 @@ export default {
       artileTime:'2017-11-18 17:09:05',
       artileMain:'RCU(Read-Copy Update)，是 Linux 中比较重要的一种同步机制。顾名思义就是“读，拷贝更新”',
       loginSign:auth.loggedIn(),
+      deleModal:false,
+      deleId:"",
     }
   },
   created:function(){
@@ -120,7 +131,27 @@ export default {
   	},
   	logout(){
   			auth.logout();
-  			this.$router.push('/');	
+  			this.$router.push('/AboutMe');	
+  	},
+  	showModal(e){
+  		var el=e.target;
+  		var id=el.parentNode.getAttribute("item-id");
+  		this.deleId=id;
+  		this.deleModal=true;
+  	}
+  	,
+  	deleteActicle(){
+  			var acticleJson={};
+  			acticleJson.id=this.deleId;
+  			api.post("/api/articleService/deleteArticleData",acticleJson)
+  			.then(function(response){
+  				if(response.data.resultCode=="1"){
+  					this.$Message.success("删除成功");
+  					window.location.reload();
+  				}else{
+  					this.$Message.error("删除失败");
+  				}
+  			}.bind(this));
   	}
   }
 }

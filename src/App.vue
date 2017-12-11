@@ -99,6 +99,7 @@ html{
 
 .artile-body{
 	padding:10%;
+	padding-top:5%;
 	height:80%;
 }
 
@@ -240,5 +241,12 @@ p{
 	height:10%; 
 	background:#9F9;
 	clear:both;
+}
+
+.close-div{
+	margin-left:5%;
+	width:100%;
+	height:5%;
+	cursor:pointer;
 }
 </style>

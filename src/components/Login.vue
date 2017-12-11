@@ -126,9 +126,7 @@ export default {
 							if(data.resultCode){
 								
 								this.$Message.success('登录成功');
-								
-								console.log(data);
-								
+															
 								auth.login({user:userName,token:data.successToken,refreshToken:data.successToken})
 								 
 								this.$router.push('/');
