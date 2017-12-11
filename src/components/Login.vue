@@ -55,7 +55,9 @@
 <script>
 	
 import auth from '@/utils/auth'
-	
+
+import api from '@/utils/api'
+
 export default {
   name: 'AboutMe',
   data () {
@@ -112,19 +114,31 @@ export default {
   		this.$refs[name].validate((valid)=>{
   			if(valid){
   				
-  				if(this.userForm.userName=='like'&&this.userForm.password=='1'){
-  					
-  					auth.login({user:'like',token:'123',refreshToken:'321'});
-  					
-  					this.$Message.success('登录成功');
-  					
-  					this.$router.push('/');
-  					 									
-  				}else{ 					
-  					this.$Message.error('账号或者密码不正确');					
-  				}
-  				
-  				
+  						var userName=this.userForm.userName;
+  						
+  						var password=this.userForm.password;
+  						
+							api.get('/api/userService/checkUser?userName='+userName+'&password='+password,)
+							.then(function(result){
+								
+							var data=result.data;						
+							
+							if(data.resultCode){
+								
+								this.$Message.success('登录成功');
+								
+								console.log(data);
+								
+								auth.login({user:userName,token:data.successToken,refreshToken:data.successToken})
+								 
+								this.$router.push('/');
+								
+							}else{
+								this.$Message.error('用户名或者密码错误');
+							}
+							
+							}.bind(this));
+		
   			}else{
   				
   			}

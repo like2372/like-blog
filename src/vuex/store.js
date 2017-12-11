@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 
+
+
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
@@ -29,7 +31,7 @@ const store = new Vuex.Store({
   				})
   				.catch(function(error){
   					this.$Message.error('请求失败,error='+error);	
-  				});
+  				}.bind(this));
   		},
   		getActileDetail(context,id){
   				axios.get("/api/articleService/getArticleDetail?id="+id)
@@ -39,7 +41,7 @@ const store = new Vuex.Store({
   				})
   				.catch(function(error){
   					this.$Message.error('请求失败,error='+error);	
-  				});
+  				}.bind(this));
   		},
   		putActile(context,value){			
   			var acticleJson=JSON.stringify(value);		
@@ -53,20 +55,20 @@ const store = new Vuex.Store({
 	  			.then(function(response){
 							this.$Message.success('保存成功');
 							this.$router.push('/');
-	  			})
+	  			}.bind(this))
 	  			.catch(function(error){
 	  					this.$Message.error('请求失败,error='+error);	
-	  			});
+	  			}.bind(this));
   		},
   		deleActile(context,value){
   				axios.get("/api/articleService/deleteArticleData?id="+id)
   				.then(function(response){					
   					this.$Message.success('删除成功');	
   					this.$router.push('/');
-  				})
+  				}.bind(this))
   				.catch(function(error){
   					this.$Message.error('删除失败');	
-  				});
+  				}.bind(this));
   		}
   }
 })

@@ -3,12 +3,12 @@
 			<div class="main">
 					<div class="leftOrTop">
 						<div class="nav-bar">
-								<div class="nav-bar-head" >{{title}}</div>
+								<div class="nav-bar-head" >LiKe博客</div>
 								<div class="nav-bar-body">
 									<ul>
 										<li id="createArticle" @click="toApp('/createArticle')"  @mousemove="liMouseMove" @mouseleave="liMouseLeave" v-if='loginSign' >{{createArticle}}</li>
-										<li id="newBlog"  class="mouseClick" >{{newBlog}}</li>
-										<li id="aboutMe" @mousemove="liMouseMove" @click="toApp('/AboutMe')" @mouseleave="liMouseLeave" >{{aboutMe}}</li>
+										<li id="newBlog"  class="mouseClick" >最新博客</li>
+										<li id="aboutMe" @mousemove="liMouseMove" @click="toApp('/AboutMe')" @mouseleave="liMouseLeave" >关于我的</li>
 									</ul>								
 								</div>
 								<div class="nav-bar-foot">
