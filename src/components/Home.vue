@@ -35,9 +35,9 @@
 										<div class="artile-body">
 												<div class="close-div" @click="showModal" :item-id="item.id" v-if='loginSign'>
 													<Icon  style="color:black;float:right;" type="close-round" ></Icon>									
-												</div>
+												</div>											
 												<div class="artile-title" @click="toArtile">{{item.articleTitle}}<span v-show="false">{{item.id}}</span></div>						
-												<div class="artile-time">{{item.articleTime}}</div>
+												<div class="artile-time">{{item.articleTime}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;浏览量:{{item.articlePageView}}</div>
 												<div class="artile-main">{{item.articleShortContent}}</div>
 										</div>
 									</div>	
@@ -117,7 +117,18 @@ export default {
   			//alert(123);
   			var ele=e.target;
   			var spanEle=ele.firstElementChild;
-  			var articleId=spanEle.innerHTML;
+  			var articleId=spanEle.innerHTML;			
+  			//调用增加浏览量接口
+  			api.get("/api/articleService/updateArticlePageView?id="+articleId)
+  			.then(function(response){
+  				if(response.data.resultCode=="1"){
+  					
+  				}else{
+  					console.log(response);
+  				}
+  			}.bind(this));
+  			
+  			//跳转到文章页面
   			this.$router.push('/Artile/'+articleId);			
   	},
   	toApp(path){
