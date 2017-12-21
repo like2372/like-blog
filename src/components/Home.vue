@@ -35,7 +35,10 @@
 										<div class="artile-body">
 												<div class="close-div" @click="showModal" :item-id="item.id" v-if='loginSign'>
 													<Icon  style="color:black;float:right;" type="close-round" ></Icon>									
-												</div>											
+												</div>
+												<div class="close-div" @click="toApp('/createArticle')">
+													<Icon  style="color:black;float:right;" type="edit" ></Icon>		
+												</div>
 												<div class="artile-title" @click="toArtile">{{item.articleTitle}}<span v-show="false">{{item.id}}</span></div>						
 												<div class="artile-time">{{item.articleTime}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;浏览量:{{item.articlePageView}}</div>
 												<div class="artile-main">{{item.articleShortContent}}</div>
@@ -122,7 +125,7 @@ export default {
   			api.get("/api/articleService/updateArticlePageView?id="+articleId)
   			.then(function(response){
   				if(response.data.resultCode=="1"){
-  					
+  						//this.$Message.success("");
   				}else{
   					console.log(response);
   				}
