@@ -242,7 +242,11 @@ p{
 .close-div{
 	margin-left:5%;
 	width:100%;
-	height:5%;
+	height:0%;
+	cursor:pointer;
+}
+
+.update-div{
 	cursor:pointer;
 }
 

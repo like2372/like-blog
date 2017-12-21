@@ -104,7 +104,6 @@ export default {
       }
     }
   },created:function(){ 	
-		
   },mounted:function(){
 		var mditor =  Mditor.fromTextarea(document.getElementById('editor'));
   },

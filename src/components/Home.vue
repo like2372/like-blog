@@ -34,9 +34,9 @@
 									<div v-for="item in topicList" class="artile">
 										<div class="artile-body">
 												<div class="close-div" @click="showModal" :item-id="item.id" v-if='loginSign'>
-													<Icon  style="color:black;float:right;" type="close-round" ></Icon>									
+													<Icon style="color:black;float:right;" type="close-round" ></Icon>									
 												</div>
-												<div class="close-div" @click="toApp('/createArticle')">
+												<div class="update-div" @click="toApp('/updateArticle/'+item.id)" v-if='loginSign'>
 													<Icon  style="color:black;float:right;" type="edit" ></Icon>		
 												</div>
 												<div class="artile-title" @click="toArtile">{{item.articleTitle}}<span v-show="false">{{item.id}}</span></div>						
