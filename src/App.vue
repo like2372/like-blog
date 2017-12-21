@@ -39,7 +39,6 @@ body{
 	 width:100%;
   height:100%;
   margin:0px;
-  font-size: 1rem;
 }
 
 html{
@@ -116,7 +115,6 @@ html{
 	margin-bottom:2%;
 	float:left;
 	margin-right: 5%;
-	
 }
 
 p{
@@ -136,7 +134,7 @@ p{
 }
 
 .tab-head-left{
-	width:10%;
+	width:20%;
 	height:100%;
 	float:left;
 }
@@ -174,15 +172,13 @@ p{
 	list-style-type: none;
 	height:8vh;
 	line-height:8vh;
-	font-size: 18px;
 	padding-right:1%;
 	width:97%;
 }
 
 .nav-bar-head{
 	height:10%;
-	font-size: 18px;
-	line-height: 6vh;
+	line-height: 11vh;
 	color:#32d3c3;
 	background-color: #26252f;
 }
@@ -223,7 +219,7 @@ p{
 }
 
 .leftOrTop{
-	width:16%; 
+	width:20%; 
 	height:100%; 
 	background:#2a2935; 
 	float: left;
@@ -248,6 +244,65 @@ p{
 	width:100%;
 	height:5%;
 	cursor:pointer;
+}
+
+
+
+
+@media only screen and (min-width: 0px) and (max-width: 640px) {
+	
+	body{
+		font-size: 8px;
+	}
+	
+	.artile{
+		width:95%;
+		margin-right: 2%;
+		margin-left:2%;
+	}
+	
+	.artile-title{
+		font-size:1.1rem
+	}
+	
+	.artile-time{
+		font-size:0.6rem
+	}
+	
+	..artile-main-title{
+		font-size:1rem
+	}
+	
+	.rightOrBottom{
+	 	overflow:scroll; 
+	 	/*overflow-y: hidden;*/
+	} 
+	
+}
+
+@media only screen and (min-width: 640px) and (max-width: 3200px) {
+	
+	body{
+		font-size: 16px;
+	}
+	
+	.artile{
+		width:45%;
+	}
+	
+	 /*.rightOrBottom{
+	 	
+	 	overflow-y: hidden;
+	 } */
+	
+}
+
+@media only screen and (min-width: 3200px){
+	
+	body{
+		font-size: 32px;
+	}
+	
 }
 
 </style>

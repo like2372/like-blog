@@ -30,7 +30,7 @@
 								</div>
 								<div class="tab-main">
 									<div class="aboutP">作者：{{author}}</div>
-									<div class="aboutP">专属论坛:<a target="_blank" href="http://123.56.21.128:8080/springForum/category/listCategory.do">http://123.56.21.128:8080/springForum/category/listCategory.do</a></div>
+									<!--<div class="aboutP">专属论坛:<a target="_blank" href="http://123.56.21.128:8080/springForum/category/listCategory.do">http://123.56.21.128:8080/springForum/category/listCategory.do</a></div>-->
 									<div class="aboutP">专属留言板:<a target="_blank" href="http://123.56.21.128/">http://123.56.21.128/</a></div>
 									<!--<img v-bind:src="imgUrl" />-->
 								</div>
