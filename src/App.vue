@@ -255,6 +255,10 @@ p{
 		font-size: 8px;
 	}
 	
+	#app{
+		font-size: 8px;
+	}
+	
 	.artile{
 		width:95%;
 		margin-right: 2%;
@@ -286,6 +290,10 @@ p{
 		font-size: 16px;
 	}
 	
+	#app{
+		font-size: 16px;
+	}
+	
 	.artile{
 		width:45%;
 	}
@@ -300,6 +308,10 @@ p{
 @media only screen and (min-width: 3200px){
 	
 	body{
+		font-size: 32px;
+	}
+	
+	#app{
 		font-size: 32px;
 	}
 	
