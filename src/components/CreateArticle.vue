@@ -48,6 +48,9 @@
 										</formItem>
 									</i-form>
 									<!--<img v-bind:src="imgUrl" />-->
+									 <Upload action="/api/articleService/uploadFile" multiple :headers="headerJson">
+							        <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
+							    </Upload>
 								</div>
 							</div>						
 					</div>
@@ -86,6 +89,9 @@ export default {
       inputShortContent:'请输入文章描述:',
       inputContent:'请输入文章正文:',
       loginSign:auth.loggedIn(),
+      headerJson:{
+      	Authorization:auth.get().token
+      },
       articleForm:{
       	inputTitle:'',
       	inputShortContent:'',

@@ -22,9 +22,14 @@
 								<div class="tab-head">
 									<div class="tab-head-left">
 										<div class="pTitle" >
-											<p>{{newArticle}}</p>
+											<p>{{newArticle}}</p>									
 										</div>										
 										<div class="item-border"></div>
+									</div>
+									<div class="tab-head-right">
+										<div class="showEditButton">
+											<i-button type="primary" v-if="loginSign" @click="showEditButton">操作</i-button>
+										</div>
 									</div>
 								</div>
 								<div class="tab-main">
@@ -32,13 +37,13 @@
 											        <p>是否删除该条？</p>
 									</Modal>
 									<div v-for="item in topicList" class="artile">
-										<div class="artile-body">
-												<div class="close-div" @click="showModal" :item-id="item.id" v-if='loginSign'>
-													<Icon style="color:black;float:right;" type="close-round" ></Icon>									
-												</div>
-												<div class="update-div" @click="toApp('/updateArticle/'+item.id)" v-if='loginSign'>
-													<Icon  style="color:black;float:right;" type="edit" ></Icon>		
-												</div>
+										<div class="artile-body" >		
+													<div class="close-div" @click="showModal" :item-id="item.id" v-show="showEdit&&loginSign">
+														<Icon style="color:black;float:right;" type="close-round" ></Icon>									
+													</div>
+													<div class="update-div" @click="toApp('/updateArticle/'+item.id)" v-show="showEdit&&loginSign" >
+														<Icon  style="color:black;float:right;" type="edit" ></Icon>			
+												</div> 
 												<div class="artile-title" @click="toArtile">{{item.articleTitle}}<span v-show="false">{{item.id}}</span></div>						
 												<div class="artile-time">{{item.articleTime}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;浏览量:{{item.articlePageView}}</div>
 												<div class="artile-main">{{item.articleShortContent}}</div>
@@ -83,6 +88,7 @@ export default {
       artileTime:'2017-11-18 17:09:05',
       artileMain:'RCU(Read-Copy Update)，是 Linux 中比较重要的一种同步机制。顾名思义就是“读，拷贝更新”',
       loginSign:auth.loggedIn(),
+      showEdit:false,
       deleModal:false,
       deleId:"",
     }
@@ -166,8 +172,16 @@ export default {
   					this.$Message.error("删除失败");
   				}
   			}.bind(this));
+  	},
+  	showEditButton(){
+  		if(this.showEdit){
+  			this.showEdit=false;
+  		}else{
+  			this.showEdit=true;
+  		}
+  		
   	}
-  }
+ }
 }
 </script>
 

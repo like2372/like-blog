@@ -139,6 +139,17 @@ p{
 	float:left;
 }
 
+.tab-head-right{
+	width:30%;
+	height:100%;
+	float:right;
+}
+
+.showEditButton{
+	float:right;
+	padding-top:0.6rem;
+}
+
 .tab-head{
 	height:5%;
 	border-bottom:#32D3C3 thin groove;
