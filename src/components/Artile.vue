@@ -29,7 +29,7 @@
 								</div>
 								<div class="tab-main">
 										<div class="artile-main-title">{{artileJson.articleTitle}}</div>
-										<div class="artile-main-time">{{artileJson.articleTime}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;浏览量:{{artileJson.articlePageView}}</div>
+										<div class="artile-main-time">{{artileJson.articleTime}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;浏览量:{{artileJson.articlePageView}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="acticleTag">{{artileJson.articleTage}}</span></div>
 										<div class="artile-main-pageView"></div>
 										<div class="artile-main-content" >
 											<div class="content markdown-body"  v-html="formatActicle(artileJson.articleContent)"></div>

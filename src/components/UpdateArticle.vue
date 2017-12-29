@@ -39,6 +39,10 @@
 											<label>{{inputShortContent}}</label>
 											<i-input type="text" v-model='articleForm.inputShortContent' id="inputShortContent" placeholder='请输入40字以内的描述'/>
 										</formItem>
+										<formItem prop='inputTag' class="inputTag" >
+											<label>{{inputTag}}</label>
+											<i-input type="text" v-model='articleForm.inputTag' id="inputTag" placeholder='请输入标签'/>
+										</formItem>
 										<formItem  prop='inputContent'  class="editorDiv">
 											<label>{{inputContent}}</label>
 											<textarea name="editor" id="editor" v-bind="articleContentTextarea"></textarea>
@@ -87,9 +91,11 @@ export default {
       inputContent:'请输入文章正文:',
       loginSign:auth.loggedIn(),
       articleContentTextarea:'',
+      inputTag:'请输入文章标签',
       articleForm:{
       	inputTitle:"",
       	inputShortContent:'',
+      	inputTag:''
       },
       articleRules:{
       	inputTitle:[{
@@ -101,7 +107,10 @@ export default {
       		required:true,message:'描述不能为空',trigger: 'blur'
       	},{
       		type:'string',max:40,message:'描述不能超过40个字',trigger:'change'
-      	}],     	
+      	}],
+      	inputTag:[{
+      		required:true,message:'标签不能为空',trigger: 'blur'
+      	}]     	
       }
     }
   },created:function(){  		
@@ -112,9 +121,10 @@ export default {
   		api.get("/api/articleService/getArticleDetail?id="+this.$route.params.articleId)
   			 .then(function(response){
   			 		var data=response.data;					  					
-  					var articleJson=data.data[0];	
+  					var articleJson=data.data[0];	 					
   					this.articleForm.inputTitle=articleJson.articleTitle;
   					this.articleForm.inputShortContent=articleJson.articleShortContent;
+  					this.articleForm.inputTag=articleJson.articleTage;
   					mditor.value=articleJson.articleContent;
   			 }.bind(this))
   },
@@ -138,11 +148,13 @@ export default {
   					var acticleJson={};
 		  			var acticleTitle=this.articleForm.inputTitle;
 		  			var acticleShortContent=this.articleForm.inputShortContent;
+		  			var inputTag=this.articleForm.inputTag;
 		  			var acticleContent=document.getElementById('editor').value;
 		  			acticleJson.acticleId=this.$route.params.articleId;
 		  			acticleJson.acticleTitle=acticleTitle;
+		  			acticleJson.acticleTag=inputTag;
 		  			acticleJson.acticleShortContent=acticleShortContent;
-		  			acticleJson.acticleContent=acticleContent;		  					  					
+		  			acticleJson.acticleContent=acticleContent;		  			
 		  			api.post("/api/articleService/updateArticleData",acticleJson)
 		  			.then(function(response){
 		  						if(response.data.resultCode=="1"){

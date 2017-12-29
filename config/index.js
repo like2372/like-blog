@@ -13,7 +13,7 @@ module.exports = {
     proxyTable: {
     	 '/api': {
         target: 'http://localhost:18080/',
-		//target: 'http://172.30.55.99:18080/',
+				//target: 'http://172.30.55.99:18080/',
         changeOrigin: true,
         pathRewrite: {
           '^/api': '/'

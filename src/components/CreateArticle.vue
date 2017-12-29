@@ -39,6 +39,10 @@
 											<label>{{inputShortContent}}</label>
 											<i-input type="text" v-model='articleForm.inputShortContent' id="inputShortContent" placeholder='请输入40字以内的描述'/>
 										</formItem>
+										<formItem prop='inputTag' class="inputTag" >
+											<label>{{inputTag}}</label>
+											<i-input type="text" v-model='articleForm.inputTag' id="inputTag" placeholder='请输入标签'/>
+										</formItem>
 										<formItem  prop='inputContent'  class="editorDiv">
 											<label>{{inputContent}}</label>
 											<textarea name="editor" id="editor" ></textarea>
@@ -88,6 +92,7 @@ export default {
       inputTitle:'请输入文章标题:',
       inputShortContent:'请输入文章描述:',
       inputContent:'请输入文章正文:',
+      inputTag:'请输入文章标签',
       loginSign:auth.loggedIn(),
       headerJson:{
       	Authorization:auth.get().token
@@ -95,6 +100,7 @@ export default {
       articleForm:{
       	inputTitle:'',
       	inputShortContent:'',
+      	inputTag:''
       },
       articleRules:{
       	inputTitle:[{
@@ -106,7 +112,10 @@ export default {
       		required:true,message:'描述不能为空',trigger: 'blur'
       	},{
       		type:'string',max:40,message:'描述不能超过40个字',trigger:'change'
-      	}],     	
+      	}],  
+      	inputTag:[{
+      		required:true,message:'标签不能为空',trigger: 'blur'
+      	}]
       }
     }
   },created:function(){ 	
@@ -133,9 +142,11 @@ export default {
   					var acticleJson={};
 		  			var acticleTitle=this.articleForm.inputTitle;
 		  			var acticleShortContent=this.articleForm.inputShortContent;
+		  			var inputTag=this.articleForm.inputTag;
 		  			var acticleContent=document.getElementById('editor').value;
 		  			acticleJson.acticleTitle=acticleTitle;
 		  			acticleJson.acticleShortContent=acticleShortContent;
+		  			acticleJson.acticleTag=inputTag;
 		  			acticleJson.acticleContent=acticleContent;		  					  					
 		  			api.post("/api/articleService/insertArticleData",acticleJson)
 		  			.then(function(response){

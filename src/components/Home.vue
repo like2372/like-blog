@@ -45,7 +45,7 @@
 														<Icon  style="color:black;float:right;" type="edit" ></Icon>			
 												</div> 
 												<div class="artile-title" @click="toArtile">{{item.articleTitle}}<span v-show="false">{{item.id}}</span></div>						
-												<div class="artile-time">{{item.articleTime}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;浏览量:{{item.articlePageView}}</div>
+												<div class="artile-time">{{item.articleTime}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;浏览量:{{item.articlePageView}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="acticleTag">{{item.articleTage}}</span></div>
 												<div class="artile-main">{{item.articleShortContent}}</div>
 										</div>
 									</div>	
