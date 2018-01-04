@@ -29,7 +29,7 @@ export default {
         return axios({
             method: 'post', // 请求协议
             url: url, // 请求的地址
-            params: params, // post 请求的数据
+            data: params, // post 请求的数据
             timeout: 30000, // 超时时间, 单位毫秒
             headers: {
                 'X-Requested-With': 'XMLHttpRequest',
