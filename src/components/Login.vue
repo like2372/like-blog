@@ -27,8 +27,11 @@
 										<div class="item-border"></div>
 									</div>
 								</div>
-								<div class="tab-main">
-									<div class="login-div">
+								<div class="tab-main">			
+									<div class="login-img">
+											<img src="../../static/head.jpg">
+										</div>
+									<div class="login-div">								
 										<i-form ref='userForm' :model='userForm' :rules='userRule' >
 											<formItem prop='userName'>
 												<i-input type="text" v-model="userForm.userName" placeholder='请输入账号'>
@@ -167,7 +170,7 @@ a{
 	width:30%;
 	height:50%;
 	margin:0 auto;
-	margin-top:30%;
+	margin-top:1%;
 }
 
 .aboutP{
@@ -178,4 +181,17 @@ a{
 	text-align:left;
 	margin-top:1%;
 }
+
+.login-img{
+	width:10rem;
+	height:10rem;
+	margin:0 auto;
+	margin-top:30%;
+}
+
+img{
+	height:100%;
+	width:100%;
+}
+
 </style>
