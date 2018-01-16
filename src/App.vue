@@ -282,6 +282,7 @@ p{
 		width:95%;
 		margin-right: 2%;
 		margin-left:2%;
+		height:40%;
 	}
 	
 	.artile-title{
