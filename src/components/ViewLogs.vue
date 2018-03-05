@@ -8,8 +8,8 @@
 									<ul>
 										<li id="createArticle" @click="toApp('/createArticle')" v-if='loginSign'   @mousemove="liMouseMove" @mouseleave="liMouseLeave" >创建博客</li>
 										<li id="newBlog" @mousemove="liMouseMove" @click="toApp('/')" @mouseleave="liMouseLeave" >最新博客</li>
-										<li id="viewLogs" @mousemove="liMouseMove" @click="toApp('/viewLogs')" @mouseleave="liMouseLeave"  >查看日志</li>
-										<li id="aboutMe"  class="mouseClick"  >关于我的</li>
+										<li id="viewLogs"  class="mouseClick"  >查看日志</li>
+										<li id="aboutMe" @mousemove="liMouseMove" @click="toApp('/AboutMe')" @mouseleave="liMouseLeave" >{{aboutMe}}</li>
 									</ul>
 									
 								</div>
@@ -24,16 +24,18 @@
 								<div class="tab-head">
 									<div class="tab-head-left">
 										<div class="pTitle" >
-											<p>关于我的</p>
+											<p>查看日志</p>
 										</div>										
 										<div class="item-border"></div>
 									</div>
 								</div>
 								<div class="tab-main">
-									<div class="aboutP">作者：{{author}}</div>
-									<!--<div class="aboutP">专属论坛:<a target="_blank" href="http://123.56.21.128:8080/springForum/category/listCategory.do">http://123.56.21.128:8080/springForum/category/listCategory.do</a></div>-->
-									<div class="aboutP">专属留言板:<a target="_blank" href="http://123.56.21.128:8888/">http://123.56.21.128:8888/</a></div>
-									<!--<img v-bind:src="imgUrl" />-->
+										<div class="logTable">
+											 <i-table :columns="logColumns" :data="logData"></i-table>
+										</div>
+									 	<div class="page">
+									 		<Page :total='totalNumber' @on-change="pageChange" :page-size="pageSize"></Page>
+									 	</div>
 								</div>
 							</div>						
 					</div>
@@ -43,6 +45,8 @@
 <script>
 	
 import auth from '@/utils/auth'	
+
+import api from '@/utils/api'
 
 export default {
   name: 'AboutMe',
@@ -61,11 +65,56 @@ export default {
       author:'',
       imgUrl:'../../static/logo.png',
       loginSign:auth.loggedIn(),
+      logColumns:[ {
+                        title: 'IP',
+                        key: 'ip'
+                    },
+                    {
+                        title: 'PATH',
+                        key: 'path'
+                    },
+                    {
+                        title: 'TIME',
+                        key: 'time'
+                    },{
+                        title: 'CONTENT',
+                        key: 'content'
+                    }],
+      logData:[],
+      startNumber:0,
+      endNumber:10,
+      pageSize:10,
+      totalNumber:100,
     }
   },created:function(){ 	
   	this.author=this.$store.state.author;
   },
+  mounted:function(){
+  	this.getLogs();
+  },
   methods:{
+  	getLogs(){
+  		api.get("/api/logsService/getLogs?startNumber="+this.startNumber+"&endNumber="+this.endNumber)
+  			.then(function(response){
+  				if(response.data.resultCode=="1"){
+  						
+  						this.totalNumber=response.data.totalNumber;
+  						
+  						let data=response.data.data;
+				
+  						this.logData=data;
+							
+  				}else{
+  					console.log(response);
+  				}
+  			}.bind(this));
+  	},
+  	pageChange(e){
+  		alert(e);
+  		this.startNumber=(e-1)*this.pageSize;
+  		this.endNumber=this.pageSize*e;
+  		this.getLogs();
+  	},
   	liMouseMove(e){
   			var el=e.target;	
   			el.classList.add("mouseMove");
@@ -94,6 +143,10 @@ export default {
 	width:20%;
 	height:auto;
 	text-align:left;
+}
+
+.logTable{
+	margin:10%;
 }
 
 a{
