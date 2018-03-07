@@ -8,7 +8,7 @@
 									<ul>
 										<li id="createArticle"  class="mouseClick"  >{{createArticle}}</li>
 										<li id="newBlog" @mousemove="liMouseMove" @click="toApp('/')" @mouseleave="liMouseLeave" >{{newBlog}}</li>
-										<li id="viewLogs" @mousemove="liMouseMove" @click="toApp('/viewLogs')" @mouseleave="liMouseLeave"  >查看日志</li>
+										<li id="viewLogs" @mousemove="liMouseMove" v-if='loginSign' @click="toApp('/viewLogs')" @mouseleave="liMouseLeave"  >查看日志</li>
 										<li id="aboutMe" @mousemove="liMouseMove" @click="toApp('/AboutMe')" @mouseleave="liMouseLeave" >{{aboutMe}}</li>
 									</ul>
 									

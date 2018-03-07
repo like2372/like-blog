@@ -8,7 +8,7 @@
 									<ul>
 										<li id="createArticle" @click="toApp('/createArticle')" v-if='loginSign'   @mousemove="liMouseMove" @mouseleave="liMouseLeave" >创建博客</li>
 										<li id="newBlog" @mousemove="liMouseMove" @click="toApp('/')" @mouseleave="liMouseLeave" >最新博客</li>
-										<li id="viewLogs" @mousemove="liMouseMove" @click="toApp('/viewLogs')" @mouseleave="liMouseLeave"  >查看日志</li>
+										<li id="viewLogs" @mousemove="liMouseMove" v-if='loginSign' @click="toApp('/viewLogs')" @mouseleave="liMouseLeave"  >查看日志</li>
 										<li id="aboutMe"  class="mouseClick"  >关于我的</li>
 									</ul>
 									
@@ -32,7 +32,7 @@
 								<div class="tab-main">
 									<div class="aboutP">作者：{{author}}</div>
 									<!--<div class="aboutP">专属论坛:<a target="_blank" href="http://123.56.21.128:8080/springForum/category/listCategory.do">http://123.56.21.128:8080/springForum/category/listCategory.do</a></div>-->
-									<div class="aboutP">专属留言板:<a target="_blank" href="http://123.56.21.128:8888/">http://123.56.21.128:8888/</a></div>
+									<div class="aboutP">专属留言板:<a target="_blank" href="http://www.tianlingchen.xin:8888/">http://www.tianlingchen.xin:8888</a></div>
 									<!--<img v-bind:src="imgUrl" />-->
 								</div>
 							</div>						

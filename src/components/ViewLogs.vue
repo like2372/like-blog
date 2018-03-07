@@ -110,7 +110,6 @@ export default {
   			}.bind(this));
   	},
   	pageChange(e){
-  		alert(e);
   		this.startNumber=(e-1)*this.pageSize;
   		this.endNumber=this.pageSize*e;
   		this.getLogs();
