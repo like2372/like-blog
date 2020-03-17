@@ -1,5 +1,5 @@
 <template>
-  <div class="hello" > 				
+  <div class="hello" >
 			<div class="main">
 					<div class="leftOrTop">
 						<div class="nav-bar">
@@ -10,7 +10,7 @@
 										<li id="newBlog"  class="mouseClick" >最新博客</li>
 										<li id="viewLogs" @mousemove="liMouseMove" v-if='loginSign' @click="toApp('/viewLogs')" @mouseleave="liMouseLeave"  >查看日志</li>
 										<li id="aboutMe" @mousemove="liMouseMove" @click="toApp('/AboutMe')" @mouseleave="liMouseLeave" >关于我的</li>
-									</ul>								
+									</ul>
 								</div>
 								<div class="nav-bar-foot">
 									<i-button type="primary" @click="toApp('/login')" v-if='!loginSign'>登录</i-button>
@@ -23,8 +23,8 @@
 								<div class="tab-head">
 									<div class="tab-head-left">
 										<div class="pTitle" >
-											<p>{{newArticle}}</p>									
-										</div>										
+											<p>{{newArticle}}</p>
+										</div>
 										<div class="item-border"></div>
 									</div>
 									<div class="tab-head-right">
@@ -38,36 +38,37 @@
 											        <p>是否删除该条？</p>
 									</Modal>
 									<div v-for="item in topicList" class="artile">
-										<div class="artile-body" >		
+										<div class="artile-body" >
 													<div class="close-div" @click="showModal" :item-id="item.id" v-show="showEdit&&loginSign">
-														<Icon style="color:black;float:right;" type="close-round" ></Icon>									
+														<Icon style="color:black;float:right;" type="close-round" ></Icon>
 													</div>
 													<div class="update-div" @click="toApp('/updateArticle/'+item.id)" v-show="showEdit&&loginSign" >
-														<Icon  style="color:black;float:right;" type="edit" ></Icon>			
-												</div> 
-												<div class="artile-title" @click="toArtile">{{item.articleTitle}}<span v-show="false">{{item.id}}</span></div>						
+														<Icon  style="color:black;float:right;" type="edit" ></Icon>
+												</div>
+												<div class="artile-title" @click="toArtile">{{item.articleTitle}}<span v-show="false">{{item.id}}</span></div>
 												<div class="artile-time">{{item.articleTime}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;浏览量:{{item.articlePageView}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="acticleTag">{{item.articleTage}}</span></div>
 												<div class="artile-main">{{item.articleShortContent}}</div>
 										</div>
-									</div>	
+									</div>
 									<!--<div v-for="n in pageSize" class="artile">
 										<div class="artile-body">
 												<div class="artile-title" @click="toArtile">{{artileTile}}<span v-show="false">{{}}</span></div>
 												<div class="artile-time">{{artileTime}}</div>
 												<div class="artile-main">{{artileMain}}</div>
 										</div>
-									</div>	-->							
+									</div>	-->
 								</div>
 								<Page :total='totalNumber' @on-change="pageChange" :page-size="pageSize" style="margin-right:5%;margin-top:5%;height:5%;" ></Page>
-							</div>						
+							</div>
 					</div>
-			</div>	
+			</div>
+
 			<!--<div class="foot"></div>-->
   </div>
 </template>
 
 <script>
-	
+
 import auth from '@/utils/auth'
 
 import api from '@/utils/api'
@@ -83,7 +84,7 @@ export default {
       newBlog:'最新博客',
       aboutMe:'关于我的',
       pageSize:6,
-      mouseSign:false,      
+      mouseSign:false,
       newArticle:'最新文章',
       artileTile:'深入理解 Linux 的 RCU 机制',
       artileTime:'2017-11-18 17:09:05',
@@ -111,7 +112,7 @@ export default {
   },
   methods:{
   	liMouseMove(e){
-  			var el=e.target;	
+  			var el=e.target;
   			el.classList.add("mouseMove");
   			el.classList.remove("mouseLeave");
   	},
@@ -121,13 +122,13 @@ export default {
   		 	el.classList.remove("mouseMove");
   	},
   	backToHome(e){
-  			this.$router.push('/AboutMe');			
+  			this.$router.push('/AboutMe');
   	},
   	toArtile(e){
   			//alert(123);
   			var ele=e.target;
   			var spanEle=ele.firstElementChild;
-  			var articleId=spanEle.innerHTML;			
+  			var articleId=spanEle.innerHTML;
   			//调用增加浏览量接口
   			api.get("/api/articleService/updateArticlePageView?id="+articleId)
   			.then(function(response){
@@ -137,12 +138,12 @@ export default {
   					console.log(response);
   				}
   			}.bind(this));
-  			
+
   			//跳转到文章页面
-  			this.$router.push('/Artile/'+articleId);			
+  			this.$router.push('/Artile/'+articleId);
   	},
   	toApp(path){
-  			this.$router.push(path);		 			
+  			this.$router.push(path);
   	},
   	pageChange(e){
   			var data={};
@@ -152,7 +153,7 @@ export default {
   	},
   	logout(){
   			auth.logout();
-  			this.$router.push('/AboutMe');	
+  			this.$router.push('/AboutMe');
   	},
   	showModal(e){
   		var el=e.target;
@@ -180,7 +181,7 @@ export default {
   		}else{
   			this.showEdit=true;
   		}
-  		
+
   	}
  }
 }
@@ -191,5 +192,5 @@ export default {
 
 
 </style>
- 
+
 

@@ -1,6 +1,10 @@
 <template>
   <div id="app">
 		 <router-view />
+    <div class="foot">
+      <a class="footFont" href="http://www.beian.miit.gov.cn" >浙公网安备：浙ICP备18000863号</a>
+      <p>life is fantastic！</p>
+    </div>
   </div>
 </template>
 
@@ -14,7 +18,7 @@ export default {
   	}
   },
   created:function(){
-  	
+
   },
   methods:{
   	getUser(msg){
@@ -35,8 +39,12 @@ export default {
   height:100%;
 }
 
+.footFont{
+  color:black;
+}
+
 body{
-	 width:100%;
+  width:100%;
   height:100%;
   margin:0px;
 }
@@ -159,6 +167,11 @@ p{
 	height:80%;
 }
 
+.tab-sub{
+  height:5%;
+  align:center;
+}
+
 .rightMain{
 	width:95%;
 	margin:0 auto;
@@ -225,28 +238,28 @@ p{
 
 .head{
 	width:100%;
-	height:100%; 
+	height:100%;
 	background:#F90
 }
 
 .leftOrTop{
-	width:20%; 
-	height:100%; 
-	background:#2a2935; 
+	width:20%;
+	height:100%;
+	background:#2a2935;
 	float: left;
 }
 
 .rightOrBottom{
-	width:80%; 
+	width:80%;
 	height:100%;
-	background:#f4f4f4;; 
+	background:#f4f4f4;;
 	float:right;
 	overflow-y: auto;
 }
 
 .foot{
-	height:10%; 
-	background:#9F9;
+	height:5%;
+	background:white;
 	clear:both;
 }
 
@@ -269,66 +282,66 @@ p{
 
 
 @media only screen and (min-width: 0px) and (max-width: 640px) {
-	
+
 	body{
 		font-size: 8px;
 	}
-	
+
 	#app{
 		font-size: 8px;
 	}
-	
+
 	.artile{
 		width:95%;
 		margin-right: 2%;
 		margin-left:2%;
 		height:40%;
 	}
-	
+
 	.artile-title{
 		font-size:1.1rem
 	}
-	
+
 	.artile-time{
 		font-size:0.6rem
 	}
-	
+
 	.artile-main-title{
 		font-size:1rem
 	}
-	
+
 	.rightOrBottom{
-	 	overflow:scroll; 
+	 	overflow:scroll;
 	 	/*overflow-y: hidden;*/
 	 	width:100%;
 	 	height:90%;
-	} 
-	
+	}
+
 	.leftOrTop{
 		width:100%;
 		height:10%;
 		position: fixed;
 		bottom:0px;
 	}
-	
+
 	.nav-bar-head{
 		display:none;
 	}
-	
+
 	.nav-bar>.nav-bar-body>ul{
 	width:100%;
 	height:100%;
 	padding:0px;
 	margin:0px;
-	
+
 	}
-	
+
 	.nav-bar-body{
 		height:100%;
 		width:100%;
 		margin:0px;
 	}
-	
+
 	.nav-bar>.nav-bar-body>ul>li{
 	list-style-type: none;
 	height:100%;
@@ -343,40 +356,40 @@ p{
 	color:#32d3c3;
 	cursor:pointer;
 }
-	
+
 }
 
 @media only screen and (min-width: 640px) and (max-width: 3200px) {
-	
+
 	body{
 		font-size: 16px;
 	}
-	
+
 	#app{
 		font-size: 16px;
 	}
-	
+
 	.artile{
 		width:45%;
 	}
-	
+
 	 /*.rightOrBottom{
-	 	
+
 	 	overflow-y: hidden;
 	 } */
-	
+
 }
 
 @media only screen and (min-width: 3200px){
-	
+
 	body{
 		font-size: 32px;
 	}
-	
+
 	#app{
 		font-size: 32px;
 	}
-	
+
 }
 
 </style>
